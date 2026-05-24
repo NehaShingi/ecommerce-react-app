@@ -9,7 +9,7 @@ const Auth = () => {
 
   const navigate=useNavigate();
 
-  const{signUp, user, login}=useContext(AuthContext);
+  const{signUp, login}=useContext(AuthContext);
 
   const{register, handleSubmit, formState:{errors}}=useForm();
 
