@@ -1,5 +1,5 @@
 import { useContext,createContext, useState } from "react";
-import getProductById from "..data/prodcuts.js"
+import {getProductById} from "../data/products"
 
 export const CartContext= createContext(null);
 
@@ -39,7 +39,19 @@ export default function CartProvider({children}){
         setCartItems(cartItems.map((item)=> item.id === productId ? {...item, quantity} : item))
     }
 
-    return <CartContext.Provider value={{cartItems, addToCart, getCartItemsWithProducts, removeFromCart, updateQuantity}}>{children}</CartContext.Provider>
+    function getCartTotal(){
+        const total= cartItems.reduce((total,item)=>{
+            const product=getProductById(item.id)
+            return total+ (product ? product.price * item.quantity : 0);
+        },0)
+        return total;
+    }
+
+    function clearCart(){
+        setCartItems([]);
+    }
+
+    return <CartContext.Provider value={{cartItems, addToCart, getCartItemsWithProducts, removeFromCart, updateQuantity,getCartTotal, clearCart}}>{children}</CartContext.Provider>
 }
 
 export function useCart(){
