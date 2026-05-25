@@ -10,8 +10,6 @@ const ProductDetails = () => {
 
     const {addToCart,cartItems}=useCart();
     
-
-
     useEffect(()=>{
         const foundProduct= getProductById(id);
 
